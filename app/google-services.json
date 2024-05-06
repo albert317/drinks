@@ -1,0 +1,97 @@
+{
+  "project_info": {
+    "project_number": "990974668128",
+    "project_id": "infinitespirit-ea254",
+    "storage_bucket": "infinitespirit-ea254.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:990974668128:android:e8dc610ea291e84cb38205",
+        "android_client_info": {
+          "package_name": "com.albert.commons.firebase"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "990974668128-o6nv8h60civo7i1fms35b41r10nqkjvh.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC117Q4yV0M0mWXmrXX1xEKguZ3_jilM38"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "990974668128-o6nv8h60civo7i1fms35b41r10nqkjvh.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:990974668128:android:15fa5da7c2ba7790b38205",
+        "android_client_info": {
+          "package_name": "com.albert.feature_home.presentation"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "990974668128-o6nv8h60civo7i1fms35b41r10nqkjvh.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC117Q4yV0M0mWXmrXX1xEKguZ3_jilM38"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "990974668128-o6nv8h60civo7i1fms35b41r10nqkjvh.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:990974668128:android:607ec1acc85a95abb38205",
+        "android_client_info": {
+          "package_name": "com.albert.infinitespirit"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "990974668128-o6nv8h60civo7i1fms35b41r10nqkjvh.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC117Q4yV0M0mWXmrXX1xEKguZ3_jilM38"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "990974668128-o6nv8h60civo7i1fms35b41r10nqkjvh.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
