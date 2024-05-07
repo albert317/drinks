@@ -72,6 +72,8 @@ dependencies {
     implementation(project(":common:firebase"))
     implementation(project(":common:designsystem"))
 
+    implementation(project(":features:drink:domain"))
+    implementation(project(":features:drink:presentation"))
     //Firebase
     implementation(platform("com.google.firebase:firebase-bom:32.8.1"))
     implementation("com.google.firebase:firebase-analytics-ktx")

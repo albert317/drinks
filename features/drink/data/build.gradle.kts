@@ -6,7 +6,7 @@ plugins {
 }
 
 android {
-    namespace = "com.albert.infinitespirit.features.onboarding.data"
+    namespace = "com.albert.infinitespirit.features.drink.data"
     compileSdk = 34
 
     defaultConfig {
@@ -36,12 +36,12 @@ android {
 
 dependencies {
 
-    implementation(project(":features:onboarding:domain"))
-    implementation(project(":features:onboarding:usecase"))
+    implementation(project(":features:drink:domain"))
+    implementation(project(":features:drink:usecase"))
+
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
-
 
     //Firebase
     implementation (platform("com.google.firebase:firebase-bom:32.8.1"))

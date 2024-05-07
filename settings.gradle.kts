@@ -33,3 +33,11 @@ include(":features:onboarding:usecase")
 include(":features:onboarding:data")
 include(":common:firebase")
 include(":common:designsystem")
+include(":common:presentation")
+
+include(":features:drink")
+
+include(":features:drink:presentation")
+include(":features:drink:data")
+include(":features:drink:domain")
+include(":features:drink:usecase")

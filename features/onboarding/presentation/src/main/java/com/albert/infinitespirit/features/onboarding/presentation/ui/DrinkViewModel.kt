@@ -6,7 +6,7 @@ import com.albert.infinitespirit.features.onboarding.domain.Drink
 import com.albert.infinitespirit.features.onboarding.usecase.repository.GetDrinkUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -15,11 +15,12 @@ class DrinkViewModel @Inject constructor(
     private val getDrinkUseCase: GetDrinkUseCase
 ) : ViewModel() {
     private val _state = MutableStateFlow(DrinkUiState())
-    val state: StateFlow<DrinkUiState> = _state
+    val state = _state.asStateFlow()
 
     init {
         getDrink("8h2Y1JvkNv2mXFEfYHAx")
     }
+
     fun getDrink(id: String) {
         _state.value = DrinkUiState(isLoading = true)
         viewModelScope.launch {

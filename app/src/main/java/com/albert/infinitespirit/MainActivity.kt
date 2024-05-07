@@ -12,12 +12,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.albert.infinitespirit.designsystem.Desing
-import com.albert.infinitespirit.features.onboarding.presentation.ExampleExterno
+import com.albert.infinitespirit.features.drink.presentation.drink_list.DrinkListScreen
 import com.albert.infinitespirit.features.onboarding.presentation.ExampleExterno2
 import com.albert.infinitespirit.features.onboarding.presentation.OnboardingPresentationExample
 import com.albert.infinitespirit.features.onboarding.presentation.ui.DrinkScreen
-import com.albert.infinitespirit.features.onboarding.presentation.ui.Example
-import com.albert.infinitespirit.features.onboarding.presentation.ui.Greeting2
 import com.albert.infinitespirit.ui.theme.InfiniteSpiritTheme
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -62,6 +60,8 @@ fun Example222() {
     ExampleExterno2()
     Desing()
     DrinkScreen()
+
+    DrinkListScreen()
 }
 
 @Preview(showBackground = true)
