@@ -10,17 +10,8 @@ class DrinkDataSourceImpl @Inject constructor(private val fireStore: FirebaseFir
     DrinkDataSource {
 
     override suspend fun getDrink(id: String): Drink? {
-        //val snapshot = fireStore.collection("Drink").document(id).get().await()
-        //return snapshot.toObject(Drink::class.java)
-        return Drink(
-            id = "1",
-            name = "Cappuccino",
-            description = "A cappuccino is an espresso-based coffee drink that originated in Italy, and is traditionally prepared with steamed milk foam.",
-            origin = "Peru",
-            photo = "https://firebasestorage.googleapis.com/v0/b/infinite-spirit.appspot.com/o/cappuccino.jpg?alt=media&token=3b3b3b3b-3b3b-3b3b-3b3b-3b3b3b3b3b3b",
-            timeRegister = "2021-09-01T00:00:00.000Z",
-            timeUpdate = "2021-09-01T00:00:00.000Z"
-        )
+        val snapshot = fireStore.collection("Drink").document(id).get().await()
+        return snapshot.toObject(Drink::class.java)
     }
 
     override suspend fun getDrinks(): List<Drink> {

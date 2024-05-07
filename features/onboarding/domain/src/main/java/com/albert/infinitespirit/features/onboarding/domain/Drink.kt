@@ -1,11 +1,10 @@
 package com.albert.infinitespirit.features.onboarding.domain
 
 data class Drink(
-    val id: String,
-    val name: String,
-    val description: String,
-    val origin: String,
-    val photo: String,
-    val timeRegister: String,
-    val timeUpdate: String,
+    val name: String? = null,
+    val description: String? = null,
+    val origin: String? = null,
+    val photo: String? = null,
+    val timeRegister: String? = null,
+    val timeUpdate: String? = null,
 )

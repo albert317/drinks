@@ -17,6 +17,9 @@ class DrinkViewModel @Inject constructor(
     private val _state = MutableStateFlow(DrinkUiState())
     val state: StateFlow<DrinkUiState> = _state
 
+    init {
+        getDrink("8h2Y1JvkNv2mXFEfYHAx")
+    }
     fun getDrink(id: String) {
         _state.value = DrinkUiState(isLoading = true)
         viewModelScope.launch {

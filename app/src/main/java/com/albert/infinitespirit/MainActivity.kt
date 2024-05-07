@@ -15,6 +15,7 @@ import com.albert.infinitespirit.designsystem.Desing
 import com.albert.infinitespirit.features.onboarding.presentation.ExampleExterno
 import com.albert.infinitespirit.features.onboarding.presentation.ExampleExterno2
 import com.albert.infinitespirit.features.onboarding.presentation.OnboardingPresentationExample
+import com.albert.infinitespirit.features.onboarding.presentation.ui.DrinkScreen
 import com.albert.infinitespirit.features.onboarding.presentation.ui.Example
 import com.albert.infinitespirit.features.onboarding.presentation.ui.Greeting2
 import com.albert.infinitespirit.ui.theme.InfiniteSpiritTheme
@@ -60,6 +61,7 @@ fun Example222() {
     Text(text = "Example ${example.example()}")
     ExampleExterno2()
     Desing()
+    DrinkScreen()
 }
 
 @Preview(showBackground = true)
