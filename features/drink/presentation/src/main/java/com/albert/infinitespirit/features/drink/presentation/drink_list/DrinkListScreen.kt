@@ -1,5 +1,6 @@
 package com.albert.infinitespirit.features.drink.presentation.drink_list
 
+import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
@@ -12,9 +13,13 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Menu
+import androidx.compose.material.icons.rounded.AccountCircle
 import androidx.compose.material.icons.rounded.Clear
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.CenterAlignedTopAppBar
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
@@ -31,16 +36,20 @@ import androidx.compose.runtime.setValue
 import androidx.compose.runtime.snapshotFlow
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import coil.compose.rememberImagePainter
+import coil.compose.rememberAsyncImagePainter
+import coil.request.ImageRequest
 import com.albert.infinitespirit.features.drink.domain.Drink
 
 @Composable
-fun DrinkListScreen() {
+fun DrinkListScreen(
+    goToDrink: (String) -> Unit
+) {
     val viewModel: DrinkListViewModel = hiltViewModel()
     val state by viewModel.uiState.collectAsState()
 
@@ -53,9 +62,24 @@ fun DrinkListScreen() {
         viewModel::searchDrinks,
         viewModel::setIntent
     )
+
+    LaunchedEffect(viewModel.navigateToDetailEvent) {
+        viewModel.navigateToDetailEvent.collect {
+            when (it) {
+                is DrinkNavigationModel.DrinkDetail -> {
+                    Log.d("DrinkListScreen", "DrinkDetail")
+                    goToDrink(it.idDrink)
+                }
+                is DrinkNavigationModel.DrinkList -> {
+                    Log.d("DrinkListScreen", "DrinkList")
+                }
+            }
+        }
+    }
 }
 
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun DrinkListContent(
     drinks: List<Drink>,
@@ -68,15 +92,29 @@ fun DrinkListContent(
     val listState = rememberLazyListState()
 
     LaunchedEffect(listState) {
-        snapshotFlow { listState.isScrollInProgress }
-            .collect { isScrolling ->
-                if (isScrolling) {
-                    keyboardController?.hide()
-                }
+        snapshotFlow { listState.isScrollInProgress }.collect { isScrolling ->
+            if (isScrolling) {
+                keyboardController?.hide()
             }
+        }
     }
 
     Column {
+        CenterAlignedTopAppBar(
+            title = {
+                Text("Infinite Spirit", style = MaterialTheme.typography.titleLarge)
+            },
+            navigationIcon = {
+                IconButton(onClick = {}) {
+                    Icon(imageVector = Icons.Filled.Menu, contentDescription = null)
+                }
+            },
+            actions = {
+                IconButton(onClick = { }) {
+                    Icon(imageVector = Icons.Rounded.AccountCircle, contentDescription = null)
+                }
+            },
+        )
         OutlinedTextField(
             modifier = Modifier
                 .fillMaxWidth()
@@ -100,7 +138,7 @@ fun DrinkListContent(
             }
         )
         Spacer(modifier = Modifier.size(4.dp))
-        LazyColumn(state = listState) {
+        LazyColumn(state = listState, modifier = Modifier.fillMaxWidth()) {
             items(drinks) { drink ->
                 DrinkItem(
                     item = drink,
@@ -152,7 +190,12 @@ fun DrinkItem(
 
 @Composable
 fun ImageLoader(url: String) {
-    val image = rememberImagePainter(data = url)
+    val image = rememberAsyncImagePainter(
+        ImageRequest.Builder(LocalContext.current).data(data = url)
+            .apply(block = fun ImageRequest.Builder.() {
+                crossfade(true)
+            }).build()
+    )
     Image(painter = image, contentDescription = null)
 }
 
@@ -165,6 +208,8 @@ fun Greeting() {
             Drink(name = "Mojito", origin = "Cuba"),
             Drink(name = "Caipirinha", origin = "Brazil"),
             Drink(name = "Margarita", origin = "Mexico"),
+            Drink(name = "Martini", origin = "USA"),
+            Drink(name = "Negroni", origin = "Italy"),
         ),
         searchFunction = {}
     )

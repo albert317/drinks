@@ -27,6 +27,9 @@ android {
                 "proguard-rules.pro"
             )
         }
+        debug {
+            isMinifyEnabled = false
+        }
     }
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
@@ -52,8 +55,8 @@ android {
 dependencies {
 
     implementation(project(":common:presentation"))
-    implementation(project(":features:drink:domain"))
     implementation(project(":common:domain"))
+    implementation(project(":features:drink:domain"))
     implementation(project(":features:drink:usecase"))
     implementation(project(":features:drink:data"))
 
@@ -71,16 +74,17 @@ dependencies {
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.activity.compose)
     implementation(platform(libs.androidx.compose.bom))
+    implementation(libs.androidx.compose.ui)
     implementation(libs.androidx.ui)
     implementation(libs.androidx.ui.graphics)
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.material3)
-    implementation("io.coil-kt:coil-compose:1.4.0") // Reemplaza con la última versión
-    implementation("androidx.compose.ui:ui:1.7.0-alpha08")
+    implementation(libs.coilCompose)
+    androidTestImplementation(platform(libs.androidx.compose.bom))
+
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
-    androidTestImplementation(platform(libs.androidx.compose.bom))
     androidTestImplementation(libs.androidx.ui.test.junit4)
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)

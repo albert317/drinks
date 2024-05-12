@@ -29,7 +29,7 @@ abstract class BaseViewModel<UI_STATE, EFFECT, INTENT> : ViewModel() {
                 intents.collect { intent ->
                     handleIntent(intent)
                 }
-            }catch (e: Exception) {
+            } catch (e: Exception) {
                 e.printStackTrace()
             }
         }

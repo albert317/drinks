@@ -8,6 +8,8 @@ import com.albert.infinitespirit.features.drink.domain.Drink
 import com.albert.infinitespirit.features.drink.usecase.GetDrinkListUseCase
 import com.albert.infinitespirit.presentation.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.MutableSharedFlow
+import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -17,6 +19,9 @@ class DrinkListViewModel @Inject constructor(
 ) : BaseViewModel<DrinkListUiState, DrinkListEvent, DrinkListIntent>() {
     private var originalDrinks: List<Drink> = listOf()
     private var searchQuery: String = ""
+
+    private var _navigateToDetailEvent = MutableSharedFlow<DrinkNavigationModel>()
+    val navigateToDetailEvent = _navigateToDetailEvent.asSharedFlow()
 
     override fun createInitialState(): DrinkListUiState {
         return DrinkListUiState()
@@ -74,8 +79,8 @@ class DrinkListViewModel @Inject constructor(
         }
     }
 
-    private fun navigateToDetail(drink: Drink) {
-        //setEffect(DrinkListEvent.NavigateToDetail(drink))
+    private suspend fun navigateToDetail(drink: Drink) {
         Log.d("DrinkListViewModel", "navigateToDetail: ${drink.name}")
+        _navigateToDetailEvent.emit(DrinkNavigationModel.DrinkDetail(drink.name ?: ""))
     }
 }

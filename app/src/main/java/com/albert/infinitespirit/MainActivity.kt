@@ -10,8 +10,9 @@ import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.navigation.compose.rememberNavController
 import com.albert.infinitespirit.features.drink.presentation.drink_list.DrinkListContent
-import com.albert.infinitespirit.features.drink.presentation.drink_list.DrinkListScreen
+import com.albert.infinitespirit.navigation.MyNavHost
 import com.albert.infinitespirit.ui.theme.InfiniteSpiritTheme
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -26,7 +27,7 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    DrinkListScreen()
+                    MyNavHost(navController = rememberNavController())
                 }
             }
         }
