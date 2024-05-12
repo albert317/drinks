@@ -16,6 +16,5 @@ java {
 
 dependencies {
     implementation(project(":features:onboarding:domain"))
-
-    implementation ("javax.inject:javax.inject:1")
+    implementation (libs.javaxInject)
 }

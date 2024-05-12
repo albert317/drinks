@@ -44,13 +44,13 @@ dependencies {
 
 
     //Firebase
-    implementation (platform("com.google.firebase:firebase-bom:32.8.1"))
-    implementation ("com.google.firebase:firebase-analytics-ktx")
-    implementation ("com.google.firebase:firebase-firestore-ktx")
+    implementation(platform(libs.firebaseBom))
+    implementation(libs.firebaseAnalytics)
+    implementation(libs.firebaseFirestore)
 
     //hilt
-    implementation("com.google.dagger:hilt-android:2.46.1")
-    kapt("com.google.dagger:hilt-android-compiler:2.46.1")
+    implementation(libs.daggerHilt)
+    kapt(libs.daggerHiltCompiler)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)

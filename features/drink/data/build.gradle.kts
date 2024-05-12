@@ -35,23 +35,26 @@ android {
 }
 
 dependencies {
-
+    //Modules
     implementation(project(":features:drink:domain"))
     implementation(project(":features:drink:usecase"))
+    implementation(project(":common:domain"))
 
+    //AndroidX
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
 
     //Firebase
-    implementation (platform("com.google.firebase:firebase-bom:32.8.1"))
-    implementation ("com.google.firebase:firebase-analytics-ktx")
-    implementation ("com.google.firebase:firebase-firestore-ktx")
+    implementation(platform(libs.firebaseBom))
+    implementation(libs.firebaseAnalytics)
+    implementation(libs.firebaseFirestore)
 
     //hilt
-    implementation("com.google.dagger:hilt-android:2.46.1")
-    kapt("com.google.dagger:hilt-android-compiler:2.46.1")
+    implementation(libs.daggerHilt)
+    kapt(libs.daggerHiltCompiler)
 
+    //test
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)

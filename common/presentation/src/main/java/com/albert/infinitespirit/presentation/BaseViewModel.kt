@@ -25,8 +25,12 @@ abstract class BaseViewModel<UI_STATE, EFFECT, INTENT> : ViewModel() {
 
     private fun subscribeIntents() {
         viewModelScope.launch {
-            intents.collect { intent ->
-                handleIntent(intent)
+            try {
+                intents.collect { intent ->
+                    handleIntent(intent)
+                }
+            }catch (e: Exception) {
+                e.printStackTrace()
             }
         }
     }

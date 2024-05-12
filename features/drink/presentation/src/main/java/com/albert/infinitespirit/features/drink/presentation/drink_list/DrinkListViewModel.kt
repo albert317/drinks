@@ -1,30 +1,81 @@
 package com.albert.infinitespirit.features.drink.presentation.drink_list
 
-import androidx.lifecycle.ViewModel
+import android.util.Log
 import androidx.lifecycle.viewModelScope
+import com.albert.infinitespirit.common.domain.Failure
+import com.albert.infinitespirit.common.domain.Result
+import com.albert.infinitespirit.features.drink.domain.Drink
 import com.albert.infinitespirit.features.drink.usecase.GetDrinkListUseCase
+import com.albert.infinitespirit.presentation.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class DrinkListViewModel @Inject constructor(
     private val getDrinkListUseCase: GetDrinkListUseCase
-) : ViewModel() {
-    private val _uiState = MutableStateFlow(DrinkListUiState())
-    val uiState = _uiState.asStateFlow()
+) : BaseViewModel<DrinkListUiState, DrinkListEvent, DrinkListIntent>() {
+    private var originalDrinks: List<Drink> = listOf()
+    private var searchQuery: String = ""
 
-    init {
-        getDrinkList()
+    override fun createInitialState(): DrinkListUiState {
+        return DrinkListUiState()
     }
 
-    fun getDrinkList() {
-        _uiState.value = DrinkListUiState(isLoading = true)
-        viewModelScope.launch {
-            val drinks = getDrinkListUseCase()
-            _uiState.value = DrinkListUiState(drinks = drinks)
+    override suspend fun handleIntent(intent: DrinkListIntent) {
+        when (intent) {
+            is DrinkListIntent.LoadDrinkList -> observeDrinkList()
+            is DrinkListIntent.SelectDrink -> navigateToDetail(intent.drink)
+            is DrinkListIntent.SearchDrink -> {}
         }
+    }
+
+    private fun observeDrinkList() {
+        setUiState { copy(isLoading = true) }
+        viewModelScope.launch {
+            try {
+                getDrinkListUseCase().collect { result ->
+                    when (result) {
+                        is Result.Success -> {
+                            originalDrinks = result.data
+                            setUiState { copy(drinks = result.data, isLoading = false) }
+                            searchDrinks()
+                        }
+
+                        is Result.Error -> {
+                            setUiState {
+                                copy(
+                                    isLoading = false, error = Throwable(result.failure.toString())
+                                )
+                            }
+                            setEffect(DrinkListEvent.showAlert(result.failure))
+                        }
+                    }
+                }
+            } catch (e: Exception) {
+                setUiState { copy(isLoading = false, error = Throwable(e.message)) }
+                setEffect(
+                    DrinkListEvent.showAlert(
+                        Failure.CustomError(e.message ?: "Unknown Error")
+                    )
+                )
+            }
+        }
+    }
+
+    fun searchDrinks(searchQuery: String = this.searchQuery) {
+        this.searchQuery = searchQuery
+        if (searchQuery.isEmpty()) {
+            setUiState { copy(drinks = originalDrinks) }
+        } else {
+            val filteredDrinks =
+                originalDrinks.filter { it.name?.contains(searchQuery, ignoreCase = true) == true }
+            setUiState { copy(drinks = filteredDrinks) }
+        }
+    }
+
+    private fun navigateToDetail(drink: Drink) {
+        //setEffect(DrinkListEvent.NavigateToDetail(drink))
+        Log.d("DrinkListViewModel", "navigateToDetail: ${drink.name}")
     }
 }

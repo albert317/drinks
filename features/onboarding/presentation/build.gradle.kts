@@ -53,12 +53,13 @@ dependencies {
     implementation(project(":features:onboarding:usecase"))
     implementation(project(":features:onboarding:data"))
     //hilt
-    implementation("com.google.dagger:hilt-android:2.46.1")
-    kapt("com.google.dagger:hilt-android-compiler:2.46.1")
+    implementation(libs.daggerHilt)
+    kapt(libs.daggerHiltCompiler)
+    implementation(libs.daggerHiltNavigationCompose)
 
-    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.7.0")
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.1")
-    implementation("androidx.hilt:hilt-navigation-compose:1.2.0")
+
+    implementation(libs.androidx.lifecycle.viewmodel.ktx)
+    implementation(libs.coroutines.android)
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)

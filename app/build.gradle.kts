@@ -54,7 +54,17 @@ android {
 }
 
 dependencies {
+    implementation(project(":features:onboarding:domain"))
+    implementation(project(":features:onboarding:presentation"))
+    implementation(project(":features:drink:domain"))
+    implementation(project(":features:drink:presentation"))
+    implementation(project(":common:designsystem"))
+    implementation(project(":common:firebase"))
+
+    //AndroidX
     implementation(libs.androidx.core.ktx)
+    implementation(libs.androidx.appcompat)
+    implementation(libs.material)
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.activity.compose)
     implementation(platform(libs.androidx.compose.bom))
@@ -63,22 +73,16 @@ dependencies {
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.material3)
 
+    //hilt
+    implementation(libs.daggerHilt)
+    kapt(libs.daggerHiltCompiler)
 
-    implementation("com.google.dagger:hilt-android:2.46.1")
-    kapt("com.google.dagger:hilt-android-compiler:2.46.1")
-
-    implementation(project(":features:onboarding:domain"))
-    implementation(project(":features:onboarding:presentation"))
-    implementation(project(":common:firebase"))
-    implementation(project(":common:designsystem"))
-
-    implementation(project(":features:drink:domain"))
-    implementation(project(":features:drink:presentation"))
     //Firebase
-    implementation(platform("com.google.firebase:firebase-bom:32.8.1"))
-    implementation("com.google.firebase:firebase-analytics-ktx")
-    implementation("com.google.firebase:firebase-firestore-ktx")
+    implementation(platform(libs.firebaseBom))
+    implementation(libs.firebaseAnalytics)
+    implementation(libs.firebaseFirestore)
 
+    //test
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
