@@ -1,12 +1,12 @@
 package com.albert.infinitespirit.features.drink.presentation.navigation
 
-import androidx.compose.material3.Text
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
 import androidx.navigation.NavType
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import androidx.navigation.navigation
+import com.albert.infinitespirit.features.drink.presentation.drink_detail.DrinkScreen
 import com.albert.infinitespirit.features.drink.presentation.drink_list.DrinkListScreen
 import com.albert.infinitespirit.features.drink.presentation.navigation.DrinkNavigation.DRINK_DETAIL_SCREEN
 import com.albert.infinitespirit.features.drink.presentation.navigation.DrinkNavigation.DRINK_LIST_SCREEN
@@ -50,9 +50,10 @@ fun NavGraphBuilder.drinkNavGraph(
                     type = NavType.StringType
                 }
             )
-        ) { backStackEntry ->
-            val idDrink = backStackEntry.arguments?.getString(DrinkNavArgs.IdDrink.key)
-            Text(text = "Drink Detail: $idDrink")
+        ) {
+            DrinkScreen() {
+                navController.popBackStack()
+            }
         }
     }
 }

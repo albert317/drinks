@@ -56,6 +56,7 @@ dependencies {
 
     implementation(project(":common:presentation"))
     implementation(project(":common:domain"))
+    implementation(project(":common:designsystem"))
     implementation(project(":features:drink:domain"))
     implementation(project(":features:drink:usecase"))
     implementation(project(":features:drink:data"))

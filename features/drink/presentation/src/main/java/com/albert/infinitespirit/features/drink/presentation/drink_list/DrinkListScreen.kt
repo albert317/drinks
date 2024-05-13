@@ -1,7 +1,6 @@
 package com.albert.infinitespirit.features.drink.presentation.drink_list
 
 import android.util.Log
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -36,14 +35,14 @@ import androidx.compose.runtime.setValue
 import androidx.compose.runtime.snapshotFlow
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import coil.compose.rememberAsyncImagePainter
-import coil.request.ImageRequest
+import com.albert.infinitespirit.designsystem.image.ImageLoaderUIKit
 import com.albert.infinitespirit.features.drink.domain.Drink
 
 @Composable
@@ -63,13 +62,14 @@ fun DrinkListScreen(
         viewModel::setIntent
     )
 
-    LaunchedEffect(viewModel.navigateToDetailEvent) {
-        viewModel.navigateToDetailEvent.collect {
+    LaunchedEffect(viewModel.navigation) {
+        viewModel.navigation.collect {
             when (it) {
                 is DrinkNavigationModel.DrinkDetail -> {
                     Log.d("DrinkListScreen", "DrinkDetail")
                     goToDrink(it.idDrink)
                 }
+
                 is DrinkNavigationModel.DrinkList -> {
                     Log.d("DrinkListScreen", "DrinkList")
                 }
@@ -124,7 +124,7 @@ fun DrinkListContent(
                 searchQuery = newQuery
                 searchFunction(newQuery)
             },
-            label = { Text("Buscar") },
+            label = { Text("Buscar bebida o ingrediente") },
             trailingIcon = {
                 if (searchQuery != "") {
                     IconButton(onClick = {
@@ -162,25 +162,46 @@ fun DrinkItem(
         )
     ) {
         Row(verticalAlignment = Alignment.CenterVertically) {
-            Card(Modifier.size(85.dp)) {
-                item.photo?.let { ImageLoader(url = it) }
+            Card {
+                item.photo?.let {
+                    ImageLoaderUIKit(
+                        url = it,
+                        contentScale = ContentScale.Crop,
+                        modifier = Modifier.size(85.dp)
+                    )
+                }
             }
             Column(
                 Modifier
                     .padding(vertical = 14.dp, horizontal = 14.dp)
                     .weight(1f)
             ) {
-                item.name?.let {
-                    Text(
-                        text = it, maxLines = 1,
-                        style = MaterialTheme.typography.bodyLarge.copy(fontWeight = FontWeight.W500)
-                    )
+                Row(verticalAlignment = Alignment.CenterVertically) {
+                    item.name?.let {
+                        Text(
+                            text = it, maxLines = 1,
+                            style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.W500),
+                            modifier = Modifier.weight(1f)
+                        )
+                    }
+                    item.origin?.let {
+                        Text(
+                            text = it, maxLines = 1,
+                            color = MaterialTheme.colorScheme.onSurfaceVariant,
+                            style = MaterialTheme.typography.labelMedium
+                        )
+                    }
                 }
-                item.origin?.let {
+                Spacer(
+                    modifier = Modifier.size(4.dp)
+                )
+                item.ingredients?.let {
                     Text(
-                        text = it, maxLines = 1,
+                        text = it.joinToString(", "),
+                        maxLines = 2,
                         color = MaterialTheme.colorScheme.outline,
-                        style = MaterialTheme.typography.labelMedium
+                        style = MaterialTheme.typography.bodyMedium,
+                        textAlign = TextAlign.Justify
                     )
                 }
             }
@@ -188,23 +209,16 @@ fun DrinkItem(
     }
 }
 
-@Composable
-fun ImageLoader(url: String) {
-    val image = rememberAsyncImagePainter(
-        ImageRequest.Builder(LocalContext.current).data(data = url)
-            .apply(block = fun ImageRequest.Builder.() {
-                crossfade(true)
-            }).build()
-    )
-    Image(painter = image, contentDescription = null)
-}
-
 @Preview(showSystemUi = true, showBackground = true, backgroundColor = 0xFFFFFFFF)
 @Composable
 fun Greeting() {
     DrinkListContent(
         drinks = listOf(
-            Drink(name = "Pisco Sour", origin = "Peru"),
+            Drink(
+                name = "Pisco Sour", origin = "Peru", photo = "https://www.example.com/image.jpg",
+                ingredients = listOf("Pisco", "Lemon", "Sugar", "Egg white"),
+                preparationSteps = listOf("Step 1", "Step 2")
+            ),
             Drink(name = "Mojito", origin = "Cuba"),
             Drink(name = "Caipirinha", origin = "Brazil"),
             Drink(name = "Margarita", origin = "Mexico"),

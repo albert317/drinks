@@ -41,7 +41,9 @@ class DrinkDataSourceImpl @Inject constructor(private val fireStore: FirebaseFir
                 if (error != null) {
                     trySend(Result.Error(Failure.CustomError(error.message ?: "Unknown Error")))
                 } else {
-                    val drinks = value?.toObjects(Drink::class.java)
+                    val drinks = value?.documents?.mapNotNull { document ->
+                        document.toObject(Drink::class.java)?.copy(id = document.id)
+                    }
                     if (drinks != null) {
                         trySend(Result.Success(drinks))
                     } else {
