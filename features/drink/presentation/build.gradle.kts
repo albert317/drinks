@@ -60,6 +60,8 @@ dependencies {
     implementation(project(":features:drink:domain"))
     implementation(project(":features:drink:usecase"))
     implementation(project(":features:drink:data"))
+    implementation(project(":features:login:presentation"))
+
 
     implementation(libs.daggerHilt)
     kapt(libs.daggerHiltCompiler)
@@ -82,6 +84,9 @@ dependencies {
     implementation(libs.androidx.material3)
     implementation(libs.coilCompose)
     androidTestImplementation(platform(libs.androidx.compose.bom))
+    implementation("androidx.compose.animation:animation:1.6.7")
+    implementation(libs.androidx.compose.navigation)
+    implementation("androidx.compose.foundation:foundation-android:1.6.7")
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)

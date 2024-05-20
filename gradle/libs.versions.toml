@@ -39,6 +39,7 @@ daggerHiltNavigationCompose = { group = "androidx.hilt", name = "hilt-navigation
 firebaseBom = { group = "com.google.firebase", name = "firebase-bom", version = "32.8.1" }
 firebaseAnalytics = { group = "com.google.firebase", name = "firebase-analytics-ktx" }
 firebaseFirestore = { group = "com.google.firebase", name = "firebase-firestore-ktx" }
+firebaseAuth = { group = "com.google.firebase", name = "firebase-auth-ktx" }
 androidx-lifecycle-viewmodel-ktx = { group = "androidx.lifecycle", name = "lifecycle-viewmodel-ktx", version.ref = "lifecycleRuntimeKtx" }
 javaxInject = { group = "javax.inject", name = "javax.inject", version = "1" }
 coroutines-android = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-android", version = "1.7.1" }

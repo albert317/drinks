@@ -13,6 +13,7 @@
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/app" />
             <option value="$PROJECT_DIR$/common" />
+            <option value="$PROJECT_DIR$/common/database" />
             <option value="$PROJECT_DIR$/common/designsystem" />
             <option value="$PROJECT_DIR$/common/domain" />
             <option value="$PROJECT_DIR$/common/firebase" />
@@ -25,6 +26,12 @@
             <option value="$PROJECT_DIR$/features/drink/domain" />
             <option value="$PROJECT_DIR$/features/drink/presentation" />
             <option value="$PROJECT_DIR$/features/drink/usecase" />
+            <option value="$PROJECT_DIR$/features/home" />
+            <option value="$PROJECT_DIR$/features/home/presentation" />
+            <option value="$PROJECT_DIR$/features/login" />
+            <option value="$PROJECT_DIR$/features/login/domain" />
+            <option value="$PROJECT_DIR$/features/login/presentation" />
+            <option value="$PROJECT_DIR$/features/login/usecase" />
             <option value="$PROJECT_DIR$/features/onboarding" />
             <option value="$PROJECT_DIR$/features/onboarding/data" />
             <option value="$PROJECT_DIR$/features/onboarding/domain" />

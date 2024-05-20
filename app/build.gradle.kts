@@ -83,6 +83,7 @@ dependencies {
     implementation(platform(libs.firebaseBom))
     implementation(libs.firebaseAnalytics)
     implementation(libs.firebaseFirestore)
+    implementation(libs.firebaseAuth)
 
     //test
     testImplementation(libs.junit)

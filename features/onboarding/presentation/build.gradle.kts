@@ -61,6 +61,8 @@ dependencies {
     implementation(libs.daggerHilt)
     kapt(libs.daggerHiltCompiler)
     implementation(libs.daggerHiltNavigationCompose)
+    implementation("androidx.compose.animation:animation:1.6.7")
+
 
     implementation(libs.androidx.lifecycle.viewmodel.ktx)
     implementation(libs.coroutines.android)
@@ -80,6 +82,14 @@ dependencies {
     implementation(libs.coilCompose)
     androidTestImplementation(platform(libs.androidx.compose.bom))
 
+    //Firebase
+    implementation(platform(libs.firebaseBom))
+    implementation(libs.firebaseAnalytics)
+    implementation(libs.firebaseFirestore)
+    implementation(libs.firebaseAuth)
+    implementation("com.google.android.gms:play-services-auth:21.1.1")
+    implementation(libs.androidx.compose.navigation)
+    implementation("androidx.compose.foundation:foundation-android:1.6.7")
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)

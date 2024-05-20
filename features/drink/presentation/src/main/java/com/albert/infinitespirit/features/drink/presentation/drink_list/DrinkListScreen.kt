@@ -47,7 +47,8 @@ import com.albert.infinitespirit.features.drink.domain.Drink
 
 @Composable
 fun DrinkListScreen(
-    goToDrink: (String) -> Unit
+    goToDrink: (String) -> Unit,
+    openDrawer: () -> Unit = {}
 ) {
     val viewModel: DrinkListViewModel = hiltViewModel()
     val state by viewModel.uiState.collectAsState()
@@ -57,6 +58,7 @@ fun DrinkListScreen(
     }
 
     DrinkListContent(
+        openDrawer = openDrawer,
         drinks = state.drinks,
         viewModel::searchDrinks,
         viewModel::setIntent
@@ -82,6 +84,7 @@ fun DrinkListScreen(
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun DrinkListContent(
+    openDrawer: () -> Unit = {},
     drinks: List<Drink>,
     searchFunction: (String) -> Unit,
     onAction: (DrinkListIntent) -> Unit = {}
@@ -105,15 +108,12 @@ fun DrinkListContent(
                 Text("Infinite Spirit", style = MaterialTheme.typography.titleLarge)
             },
             navigationIcon = {
-                IconButton(onClick = {}) {
+                IconButton(onClick = {
+                    openDrawer()
+                }) {
                     Icon(imageVector = Icons.Filled.Menu, contentDescription = null)
                 }
-            },
-            actions = {
-                IconButton(onClick = { }) {
-                    Icon(imageVector = Icons.Rounded.AccountCircle, contentDescription = null)
-                }
-            },
+            }
         )
         OutlinedTextField(
             modifier = Modifier
@@ -173,7 +173,7 @@ fun DrinkItem(
             }
             Column(
                 Modifier
-                    .padding(vertical = 14.dp, horizontal = 14.dp)
+                    .padding(vertical = 12.dp, horizontal = 14.dp)
                     .weight(1f)
             ) {
                 Row(verticalAlignment = Alignment.CenterVertically) {
@@ -192,10 +192,11 @@ fun DrinkItem(
                         )
                     }
                 }
-                Spacer(
-                    modifier = Modifier.size(4.dp)
-                )
+
                 item.ingredients?.let {
+                    Spacer(
+                        modifier = Modifier.size(4.dp)
+                    )
                     Text(
                         text = it.joinToString(", "),
                         maxLines = 2,
@@ -211,16 +212,42 @@ fun DrinkItem(
 
 @Preview(showSystemUi = true, showBackground = true, backgroundColor = 0xFFFFFFFF)
 @Composable
-fun Greeting() {
+fun drinkListContentPreview() {
     DrinkListContent(
         drinks = listOf(
             Drink(
                 name = "Pisco Sour", origin = "Peru", photo = "https://www.example.com/image.jpg",
-                ingredients = listOf("Pisco", "Lemon", "Sugar", "Egg white"),
+                ingredients = listOf(
+                    "Pisco",
+                    "Lemon",
+                    "Sugar",
+                    "Egg white",
+                    "Pisco",
+                    "Lemon",
+                    "Sugar",
+                    "Egg white",
+                    "Pisco",
+                    "Lemon",
+                    "Sugar",
+                    "Egg white",
+                    "Pisco",
+                    "Lemon",
+                    "Sugar",
+                    "Egg white"
+                ),
                 preparationSteps = listOf("Step 1", "Step 2")
             ),
-            Drink(name = "Mojito", origin = "Cuba"),
-            Drink(name = "Caipirinha", origin = "Brazil"),
+            Drink(
+                name = "Mojito",
+                origin = "Cuba",
+                photo = "",
+                ingredients = listOf("Rum", "Mint", "Lemon", "Sugar")
+            ),
+            Drink(
+                name = "Caipirinha",
+                origin = "Brazil",
+                ingredients = listOf("Cachaça", "Lemon", "Sugar")
+            ),
             Drink(name = "Margarita", origin = "Mexico"),
             Drink(name = "Martini", origin = "USA"),
             Drink(name = "Negroni", origin = "Italy"),

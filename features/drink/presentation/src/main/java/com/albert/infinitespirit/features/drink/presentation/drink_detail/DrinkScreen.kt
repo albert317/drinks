@@ -53,8 +53,6 @@ fun DrinkScreen(popBackStack: () -> Unit) {
             }
         )
     }
-
-
 }
 
 @OptIn(ExperimentalMaterial3Api::class)

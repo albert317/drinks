@@ -16,15 +16,22 @@ import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.albert.infinitespirit.features.onboarding.presentation.R
 import kotlinx.coroutines.delay
 
 @Composable
 fun SplashScreen(goToLogin: () -> Unit, goToOnboarding: () -> Unit, goToHome: () -> Unit) {
+    val viewModel: SplashViewModel = hiltViewModel()
     SplashContent()
     LaunchedEffect(key1 = true) {
-        delay(1000L)
-        goToHome()
+        delay(2000L)
+        if (viewModel.hasGoogleSession()) {
+            goToHome()
+        } else {
+            // goToOnboarding()
+            goToLogin()
+        }
     }
 }
 

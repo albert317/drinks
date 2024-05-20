@@ -24,6 +24,7 @@ sealed class OnboardingRoutes(val route: String) {
 fun NavGraphBuilder.onboardingNavGraph(
     navController: NavHostController,
     onNavigateToHome: () -> Unit,
+    onNavigateToLogin: () -> Unit
 ) {
     navigation(
         startDestination = OnboardingRoutes.Splash.route,
@@ -32,7 +33,7 @@ fun NavGraphBuilder.onboardingNavGraph(
         composable(route = OnboardingRoutes.Splash.route) {
             SplashScreen(
                 goToLogin = {
-                    navController.navigate(OnboardingRoutes.Onboarding.route)
+                    onNavigateToLogin()
                 },
                 goToOnboarding = {
                     navController.navigate(OnboardingRoutes.Onboarding.route)

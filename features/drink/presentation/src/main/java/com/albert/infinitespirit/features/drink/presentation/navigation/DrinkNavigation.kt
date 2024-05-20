@@ -1,5 +1,12 @@
 package com.albert.infinitespirit.features.drink.presentation.navigation
 
+import android.text.Layout.Alignment
+import androidx.compose.animation.core.tween
+import androidx.compose.animation.expandHorizontally
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
+import androidx.compose.animation.slideInHorizontally
+import androidx.compose.animation.slideOutHorizontally
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
 import androidx.navigation.NavType
@@ -38,17 +45,22 @@ fun NavGraphBuilder.drinkNavGraph(
         startDestination = DrinkRoutes.DrinkList.route,
         route = DrinkNavigation.LOCAL_ROUTE
     ) {
-        composable(route = DrinkRoutes.DrinkList.route) {
-            DrinkListScreen { idDrink ->
+        composable(route = DrinkRoutes.DrinkList.route,
+            ) {
+            DrinkListScreen( { idDrink ->
                 navController.navigate(DrinkRoutes.DrinkDetail.route(idDrink))
-            }
+            })
         }
         composable(
             route = DrinkRoutes.DrinkDetail.route,
+            enterTransition = {
+                fadeIn()
+            },
+            exitTransition = {
+                fadeOut()
+            },
             arguments = listOf(
-                navArgument(DrinkNavArgs.IdDrink.key) {
-                    type = NavType.StringType
-                }
+                navArgument(DrinkNavArgs.IdDrink.key) { type = NavType.StringType }
             )
         ) {
             DrinkScreen() {

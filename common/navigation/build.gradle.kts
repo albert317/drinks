@@ -50,6 +50,8 @@ android {
 dependencies {
     implementation(project(":features:onboarding:presentation"))
     implementation(project(":features:drink:presentation"))
+    implementation(project(":features:login:presentation"))
+    implementation(project(":features:home:presentation"))
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
@@ -57,6 +59,8 @@ dependencies {
 
     androidTestImplementation(platform(libs.androidx.compose.bom))
     implementation(libs.androidx.compose.navigation)
+    implementation("androidx.compose.animation:animation:1.6.7")
+    implementation("androidx.compose.foundation:foundation-android:1.6.7")
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
