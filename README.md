@@ -1,2 +1,2 @@
 # drinks
-app drinks, android, kotlin, compose, MVVM, Clearn Architecture
+app drinks, android, kotlin, compose, MVVM, Clean Architecture
